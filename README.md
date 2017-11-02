@@ -3,7 +3,8 @@
 
 
 ## run
-	$cd generate
+	$git clone https://github.com/lucyking/CaseGenerate.git
+	$cd CaseGenerate
 	$python
 	>>> import gen
 	>>> gen.GenRandomData().generateCSV("test.csv", 100)
