@@ -7,13 +7,12 @@ import datetime
 
 
 class GenRandomData(object):
-    def genROW(self, count):
+    def genROW(self):
         retVal = []
-        v0 = self.randomAccount(count)
         v1 = self.randomBinary()
         v2 = self.randomYear()
         v3 = self.randomDayb4180()
-        retVal.extend([v0, v1, v2, v3])
+        retVal.extend([v1, v2, v3])
         if v1 == 0:
             v5 = random.randrange(1, 17, 1)
             v4 = self.randomBool()
@@ -33,9 +32,14 @@ class GenRandomData(object):
         csvfile = file(filename, 'wb')
         writer = csv.writer(csvfile)
         # writer.writerow(['val1', 'val2', 'val3', 'val4', 'val5', 'val6', 'val7', 'val8'])
+        idList = range(1, count)
+        random.shuffle(idList)
+
 
         for i in range(1, count, 1):
-            writer.writerow(self.genROW(count))
+            row = self.genROW()
+            row.insert(0, idList.pop())
+            writer.writerow(row)
 
         csvfile.close()
 
@@ -56,9 +60,6 @@ class GenRandomData(object):
 
     def randomDayb4180(self):
         return (datetime.date.today() + datetime.timedelta(self.randomDay())).isoformat()
-
-    def randomAccount(self, count):
-        return random.randrange(1, count + 1, 1)
 
 
 if __name__ == "__main__":
